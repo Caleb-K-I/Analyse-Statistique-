@@ -1,0 +1,423 @@
+---
+title: "FINAL"
+author: "KASHALA ILUNGA Caleb"
+date: "01/10/2019"
+output: html_document
+---
+
+```{r,echo=F,include=F}
+library(tidyverse)
+library(funModeling)
+library(ggplot2)
+library(dplyr)
+library(data.table)
+library(lmtest)
+library(stargazer)
+library(psych)
+library(foreign)
+library(knitr)
+library(kableExtra)
+library(VIM)
+library(mice)
+library(data.table)
+library(tmap) 
+library(leaflet) 
+library(mapview)
+library(ggplot2)
+library(spData)
+library(maps)
+library(maptools)
+library(readxl)
+library(tmaptools)
+```
+
+
+
+
+
+
+
+
+
+```{r}
+data<-read.csv("bike_crash.csv", header = T, sep = ";")
+view(data)
+attach(data)
+```
+
+```{r,warning=FALSE,echo=F}
+kable(head(data)) %>%
+ kable_styling(c("striped", "bordered","responsive", "condensed"),full_width = T) %>%
+  scroll_box(width = "100%", height = "400px")
+```
+
+## Descriptifs des variables 
+* `FID` : Identifiant;
+*  `OBJECTID` : Identifiant ;
+*  `AmbulanceR` : Prise en charge par une ambulance ;
+* `BikeAge_Gr` : Tranche d'age du cycliste  ;
+* `Bike_Age` : Age du cycliste ;
+* `Bike_Alc_D` : Alcooléémie du cycliste ;
+* `Bike_Dir` : Direction du cycliste ;
+* `Bike_Injur` : Bléssure du cycliste ;
+* `Bike_Pos` : Position du cycliste  ;
+* `Bike_Race` : La race du cycliste ;
+* `Bike_Sex` : Le sexe du cycliste  ;
+*  `City` : La Ville;
+* `County` : Comté ;
+* `CrashAlcoh` : Si une des deux personnes était alcoolisé ;
+* `CrashDay` : S'il a déjà eu un accident de travail ;
+* `Crash_Date` : Date de l'accident ;
+* `Crash_Grp` : La cause de l'accident ;
+* `Crash_Hour` : L'heure de l'accident ;
+* `Crash_Loc` : S'il y avait une intersection ou pas ;
+* `Crash_Mont` :  ;Le mois de l'accident ; 
+*  `Crash_Time` : La date de l'accident ;
+*  `Crash_Type` : Type de l'accident ;
+* `Crash_Ty_1` :  ;
+* `Crash_Year` : L'année de l'accident ;
+* `Crsh_Sevri` : La séverité de la blessure ;
+* `Development` : Le cadre de la région dans lequel l'accident s'est déroulé ;
+* `DrvrAge_Gr` : La tranche d'age du conducteur qui a fait l'accident ;
+* `Drvr_Age` : L'age du conducteur ;
+* `Drvr_Alc_D` : Si le conducteur était alcoolisé ou pas ;
+* `Drvr_EstSp` : Vitesse du conducteur responsable de l'accident ;
+*  `Drvr_Injur` : L'etat du conducteur responsable de l'accident ;
+*  `Drvr_Race` : La race du conducteur responsable de l'accident ;
+* `Drvr_Sex` : Le sexe du conducteur responsable de l'accident ;
+* `Drvr_VehTy` : Le type de véhicule ;
+* `ExcsSpdInd` : Depassement de la vitesse limite autorisée;
+* `Hit_Run` : Si le conducteur s'est enfuit sans vérifier que le pilote va bien ;
+* `Light_Cond` : La luminosité ;
+* `Locality` : Localité ;
+* `Num_Lanes` : Numéro de la voie ;
+* `Num_Units` : Numéro de l'unité ;
+*  `Rd_Charact` : ;
+*  `Rd_Class` : Le type de route ;
+* `Rd_Conditi` : Condition de la route ;
+* `Rd_Config` : Le genre de la route ;
+* `Rd_Defects` : L'Etat de la route ;
+* `Rd_Feature` : Spécificité de la route ;
+* `Rd_Surface` : La surface de la route ;
+* `Region` : La Region ;
+* `Rural_Urba` : Rurale ou urbaine ;
+* `Speed_Limi` : Limite de vitesse ;
+*  `Traff_Cntr` : Controle du trafique ;
+*  `Weather` : Condition météo ;
+* `Workzone_I` : Zone de travail ;
+* `Location` : Localisation ;
+
+Pour notre étude analytique nous allons travailler sur une base de données qui nous donne un ensemble d'informations sur les accidents de vélo qui se sont produit aux Etats-Unis. Elle nous donne des informations sur des variables innhérentes aux conducteurs impliqués dans ces accidents mais aussi sur les divers conditions et situations physiques et environnementales qui l'entoure. 
+Cette base de données nous renseigne sur 5716 observations contenant 54 variables.
+
+#Plan
+
+Pour mener à bien notre analyse nous allons procédés en plusieurs etapes :
+*  `Etudes sur les cyclistes` :  consacré à l'etudes des varaiables qui concerne le cycliste  ;
+* `Etude sur les conducteurs` :  consacré à l'etudes des variables qui concerne les conducteurs   ;
+* ` Etudes sur les données temporelles` :  consacré à l'etudes des variables qui concerne le cycliste ;
+*  `Etude sur les condtions de l'accident ` : qui correpond aux données sur les conditions météo, l'etat de la route etc.. ;
+
+* `Etude sur les autres variables` : qui correspond aux données non classeés mais qui semblent pertinentes ;
+
+#Données manquantes
+
+
+```{r,echo=F,message=F,fig.height=12,fig.width=12}
+
+NA.plot<- aggr(data, col=c('navyblue','yellow'),
+                  numbers=FALSE, sortVars=TRUE,
+                  labels=names(data), cex.axis=.7,
+                  gap=3, ylab=c("Missing data","Pattern"))
+
+```
+
+Les variables qui contiennent le plus de données manquantes sont : L'age du  vhauffeur, Crash_ty_1, Le jour de du crash , et le sexe du chauffeur.
+
+
+
+
+```{r,echo=F}
+bike<-data[,4:11]
+crash<-data[,14:25]
+driver<-data[,27:34]
+road<-data[,35:54]
+other<-data[,c(1,2,3,12,13,26)]
+```
+
+# Etude sur les cycliste
+
+
+## Age et Sexe des cyclistes 
+
+```{r,echo=F}
+boxplot(data$Bike_Age~data$Bike_Sex,outline=FALSE, horizontal=F, main="Nombre accidents ", col = "rosybrown",names=c("Femmes","Hommes"), las=0,boxwex=0.6,varwidth=T)
+```
+
+Nous remarquons sur ce graphique que les accidents de vélo concernent essentiellements les hommes et que la moyennes d'age des accidentées etait relativement la meme quelque soit le sexe. 
+
+```{r,echo=F}
+A<-table(Bike_Age)
+plot(A,ylim=c(0,200),xlab="Age des cycliste",ylab="Nombre d'accidents")
+lines(A,type="l",col="rosybrown",lwd=3)
+```
+&nbsp;
+
+L'age des accidentés varie fortement, cependant on peut constater sur ce graphique que le nombre d'accidents est beaucoup plus élevé pour les individu ayant entre 13 et 21 ans ; Puis s'en suis une forte baise du nombre d'accidents chez les 22-40 ans puis, après une legère augmentation chez les 41-53 ans, le nombre d'accident se réduit considérablement.
+
+&nbsp;
+
+
+## Alcoolémie
+```{r,echo=F}
+barplot(prop.table(sort(table(bike$Bike_Alc_D),decreasing = T)),col = "rosybrown",main = "Repartion d'accident selon la presence d'alcool(cycliste)",ylim=c(0,1))
+```
+&nbsp;
+
+La plupart des accidents ne sont pas dût à l'alccol.
+
+## Race du cycliste
+```{r,include=F,echo=F}
+B<-table(Bike_Race)
+sum(Bike_Race=="White")/length(Bike_Race)
+sum(Bike_Race=="Other")/length(Bike_Race)
+sum(Bike_Race=="Native American")/length(Bike_Race)
+sum(Bike_Race=="Hispanic")/length(Bike_Race)
+sum(Bike_Race=="Black")/length(Bike_Race)
+sum(Bike_Race=="Asian")/length(Bike_Race)
+sum(Bike_Race=="/Missing")/length(Bike_Race)
+
+Prop_Race<-data.frame(nombre=c(sum(Bike_Race=="White"),sum(Bike_Race=="Other"),sum(Bike_Race=="Native American"),sum(Bike_Race=="Hispanic"),sum(Bike_Race=="Black"),sum(Bike_Race=="Asian"),sum(Bike_Race=="/Missing")),Proportion=c(sum(Bike_Race=="White")/length(Bike_Race),sum(Bike_Race=="Other")/length(Bike_Race),sum(Bike_Race=="Native American")/length(Bike_Race),sum(Bike_Race=="Hispanic")/length(Bike_Race),sum(Bike_Race=="Black")/length(Bike_Race),sum(Bike_Race=="Asian")/length(Bike_Race),sum(Bike_Race=="/Missing")/length(Bike_Race)),row.names=c("White","Other","native American","Hispanic","Black","Asian","Missing"))
+
+```
+
+```{r,echo=F}
+kable(Prop_Race) %>%
+kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"," bordered"), full_width = F)
+```
+
+```{r,echo=F}
+barplot(sort(B),cex.names = 1,horiz=T,las=2,xlim=c(0,4000),xlab="Nombre d'accidents",col="rosybrown")
+text(x=3500,y=8.3,"54.42%",pos=1)
+text(x=2400,y=7,"35.09%",pos=1)
+text(x=680,y=5.95,"5.19%",pos=1)
+text(x=540,y=4.6,"2.29%",pos=1)
+text(x=450,y=3.5,"1.17%",pos=1)
+text(x=460,y=2.2,"0.09%",pos=1)
+text(x=450,y=1,"0.08%",pos=1)
+```
+
+## Bléssures du cycliste.
+
+```{r,echo=F}
+Injur<-data.frame(sort(table(Bike_Injur),decreasing = T))
+kable(Injur) %>%
+kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"," bordered"), full_width = F)
+```
+
+```{r,echo=F}
+ggplot(Injur, aes(Injur$Bike_Injur, Injur$Freq))+theme_gray()+xlab("Type de blessure") + ylab("Frequences")+geom_bar(stat="identity")
+```
+
+La majeure partie des accidents, bien que n'étant pas mortel, entraine dans la plupart des cas des blessures graves. Ceci s'explique notament parce que la plupart des colision se font avec des automiblistes et que les cyclistes n'ont aucune protections d'aucune sorte.
+
+
+## Relation entre type de blessure et Position du vélo 
+
+```{r,echo=F}
+lane<-data.frame(sort(table(data$Bike_Pos),decreasing = T))
+kable(lane) %>%
+kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"," bordered"), full_width = F)
+```
+
+```{r,echo=F}
+ggplot(bike, aes(x =bike$Bike_Injur,fill=bike$Bike_Pos))+
+    geom_bar() +
+    theme(axis.text.x = element_text(size=10, angle=90))+
+    facet_wrap(~ bike$Bike_Dir)+
+    ggtitle("Repartions de la gravite des blessures par type de route et positionnment du velo(cycliste)") +
+    xlab("Etat du cycliste") + 
+    ylab("nombre d'accident")+
+  labs(fill = "Type de route")
+```
+
+# Etude sur les conducteurs
+
+## Sexe du conducteur
+
+```{r,warning=F,echo=F}
+tab1<-sort(table(data$Drvr_Sex))
+kable(tab1) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),full_width = F)
+```
+
+```{r,echo=F}
+qplot(data$Drvr_Sex)+theme_grey()+xlab("Sexe")+labs("Sexe des chauffeurs et nombres d'accidents")+ylab("Nombres d'accidents")
+```
+
+&nbsp;
+
+Contrairement aux accidentés qui sont essentiellement des hommes, le sexe des auteurs des accidents est quand à lui repartit plus quitablement entre les hommes et les femmes. Cependant le doute subsiste etant donné le nombre de données manquantes. 
+
+## Age des chauffeurs.
+
+```{r,warning=F,echo=F,message=F}
+qplot(data$Drvr_Age)+geom_bar()+ theme_gray()+xlab("Age du chauffeur")
+```
+&nbsp;
+
+L'age du chauffeur est la variable ayant le plus de données manquantes. 
+Cette representation graphique permet néanmoins d'observer la distribution de l'age des chauffeurs. 
+Trois pics sont a notés, le premier a 21 ans , le second à 40 et enfin le dernier a 60 ans.
+
+## Bléssures des chauffeurs
+
+```{r,warning=F,echo=F}
+tab1<-prop.table(sort(table(data$Drvr_Injur),decreasing = T))
+kable(tab1) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),full_width = F)
+```
+
+
+```{r,echo=F}
+qplot(sort((data$Drvr_Injur),decreasing=F))
+```
+
+On aurait pu supposer d'intinct qu'un accident entre une voiture et un cycliste ne causeraI que très peu de dommage au conducteur de la voiture, les données le confirme.
+Dans la plupart des accidents le chauffeur s'en est sorti sans blessures. 
+Il n'y a que 2 morts parmi les 5716 accidents recensés. 
+
+## Relation entre la vitesse du chaufeur, sa couleur de peau et le nombre d'accidents
+
+```{r,echo=F}
+tab<-table  (driver$Drvr_EstSp,driver$Drvr_Race)
+kable(tab)%>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  scroll_box(width = "100%", height = "400px")
+```
+
+```{r,echo=F}
+ggplot(data, aes(x =driver$Drvr_EstSp,fill=driver$Drvr_Race))+ theme(axis.text.x = element_text(size=8,angle=90)) +
+    ggtitle("Histogramme des accidents par race et selon la vitesse") +geom_bar() +
+    xlab("vitesse estime") + 
+    ylab("nombre d'accident")+labs(fill = "race des individus")
+```
+
+
+Les chauffeurs les plus impliqués dans un accidents sont de race Blanche, les second etant Noir. La plupart des individus impliqués dans un accident roulent entre 0 et 5 mph (milles par heure). 
+Le fait que les victimes et les auteurs des accidents soient en majorité blanche peut s'expliquer simplement par le fait que la population soit en majorité blanche. Il serait intéréssant de rapporter ces données a la proportion de la population, mais nous manquons de données pour cela.
+Notons aussi que nous avant 1500 accidents dont nous n'avons pas de données sur la vitesse.
+
+##Alcoolémie
+
+
+```{r,echo=F}
+
+qplot(data$Drvr_Alc_D)+theme_grey()+xlab("Presence d'alcool dans le sang")
+```
+
+```{r,warning=FALSE,echo=F}
+kable(table(driver$Drvr_Alc_D))%>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),full_width = F,position="float_right") 
+```
+La plupart des chauffeurs n'etaient pas alcoolisés. 
+
+
+
+
+## Type de voitures
+
+```{r,echo=F,message=F}
+barplot(sort(table(data$Drvr_VehTy)),las=2,cex.names=0.6)
+tab1<-sort(table(data$Drvr_VehTy),decreasing = T)
+kable(tab1)%>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  scroll_box(width = "100%", height = "200px")
+```
+Les principales types voitures impliqués dans des accidents de vélos sont des voitures familiales, voitures des port, Pickup et Van.
+Ceci pourrait s'expliquer par le fait que les cycliste se promenant surtout en agglomération ils rencontre surtout ce genre de voiture.  
+
+# Etude sur les données temporelles 
+
+```{r,echo=F}
+qplot(data$Crash_Year)
+```
+
+
+Le premier grahique  nous montre  que globalement au fil des années le nombre d'accident impliquant un cycliste et un conducteur est resté plus ou moins le même au alentours de 1000 accident sauf au cours de l'année 2009 où nous avons eu une nette diminution d'environ 200 accidents.
+
+```{r,echo=F}
+Mois<-substring(data$Crash_Date,6,7)
+```
+
+Nous avons des maintenant des informations concernant l'heure, le mois(extraite des la variable date) et l'année des differents accidents.
+
+## Evolution du Nombre d'accident par mois en fonction des années
+```{r,echo=F}
+M<-as.Date(Crash_Date)
+M1<-data.frame(M)
+M_ <- data.frame(M1[order(M1[,1], decreasing=FALSE),])
+M_2007<-M_[c(0:1001),]
+M_2008<-M_[c(1002:2019),]
+M_2009<-M_[c(2020:2829),]
+M_2010<-M_[c(2830:3795),]
+M_2011<-M_[c(3796:4697),]
+M_2012<-M_[c(4698:5716),]
+
+Mois_2007<-table(substring(M_2007,6,7))
+Mois_2008<-table(substring(M_2008,6,7))
+Mois_2009<-table(substring(M_2009,6,7))
+Mois_2010<-table(substring(M_2010,6,7))
+Mois_2011<-table(substring(M_2011,6,7))
+Mois_2012<-table(substring(M_2012,6,7))
+
+
+CATEGORIES<-c("Janvier","Fevrier","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Decembre")
+
+plot(Mois_2007,type="l",ylab="Mois en fonction des annees",xlab="Mois",lty=1,lwd=3,bty="l",col="grey0",main="Evoltion du nombre d'accidents mensuels par an") 
+points(Mois_2008,type="l",col="grey20",lwd=3,lty=1)
+points(Mois_2009,type="l",col="grey35",lwd=3,lty=1)
+points(Mois_2010,type="l",col="grey55",lwd=3,lty=1)
+points(Mois_2011,type="l",col="grey75",lwd=3,lty=1)
+points(Mois_2012,type="l",col="grey90",lwd=3,lty=1)
+abline(v =c(1:12),lwd=0.7,lty=3,col=c("black","black","black","black","black","red","black","black","red","black","black","black"))
+legend("topleft",cex=0.6,legend=c("2007","2008","2009","2010","2011","2012"),lwd=3, lty=c(1,1,1,1,1,1),box.lwd = 0,inset = 0, title="Annees",col=c("grey0","grey20","grey35","grey55","grey75","grey90"))
+```
+
+Les courbes representative de l'evolution des accidents en fonction des mois, par année , se chevauchant entre elles et etant données qu'aucune ne se démarque des autres, on peut supposer que le nombre d'accident est rester tendanciellemnt le même au cours de ces 5 années.
+On remarque aussi que pour pratiquement toutes les années le nombre d'accident est plus élevé entre le 6eme et le 9eme mois c'est a dire de juin à septembre.
+
+
+
+# Carte
+
+
+```{r,warning=F,echo=F}
+
+all_states <- map_data("county")
+test=fread("bike_crash.csv")
+all_states$County=all_states$subregion
+all_states$subregion=NULL
+nb_crash=test[,.(nb=.N),by=County]
+nb_crash$County=tolower(nb_crash$County)
+total=merge(all_states,nb_crash,by="County",all.x=T)
+total=as.data.table(total)
+total[is.na(nb),nb:=0]
+ggplot(total, aes(x=long, y=lat, group=group, fill=nb)) + 
+  geom_polygon()
+```
+## Zoom 
+
+Faisons un zoom sur les 4 comtés où le nombre d'accident est le plus important. 
+Elles se trouve dans la meme zone géographique, l'est du Pays.
+
+
+
+```{r,echo=F,message=F,warning=F}
+car<-ggplot(total, aes(x=long, y=lat, group=group, fill=nb)) + 
+  geom_polygon()+coord_map()+theme_classic()+
+  coord_cartesian(xlim=c(-82.5,-76),ylim=c(32.5,39))
+car + annotate("text", x =c(-78.5,-78,-77.6,-81), y = c(36,37,33.8,35.8), label = c("Wake","Mecklenburg","New Hanover","Guilfgord"), colour = "deepskyblue" ,size=5)
+```
+```
+
