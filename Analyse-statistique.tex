@@ -1,0 +1,715 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  french,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={FINAL},
+  pdfauthor={KASHALA ILUNGA Caleb},
+  pdflang={fr},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifxetex
+  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
+  \usepackage{polyglossia}
+  \setmainlanguage[]{french}
+\else
+  \usepackage[main=french]{babel}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\fi
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{FINAL}
+\author{KASHALA ILUNGA Caleb}
+\date{01/10/2019}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\newpage
+
+\hypertarget{descriptifs-des-variables}{%
+\subsection{Descriptifs des variables}\label{descriptifs-des-variables}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{FID} : Identifiant;
+\item
+  \texttt{OBJECTID} : Identifiant ;
+\item
+  \texttt{AmbulanceR} : Prise en charge par une ambulance ;
+\item
+  \texttt{BikeAge\_Gr} : Tranche d'age du cycliste ;
+\item
+  \texttt{Bike\_Age} : Age du cycliste ;
+\item
+  \texttt{Bike\_Alc\_D} : Alcooléémie du cycliste ;
+\item
+  \texttt{Bike\_Dir} : Direction du cycliste ;
+\item
+  \texttt{Bike\_Injur} : Bléssure du cycliste ;
+\item
+  \texttt{Bike\_Pos} : Position du cycliste ;
+\item
+  \texttt{Bike\_Race} : La race du cycliste ;
+\item
+  \texttt{Bike\_Sex} : Le sexe du cycliste ;
+\item
+  \texttt{City} : La Ville;
+\item
+  \texttt{County} : Comté ;
+\item
+  \texttt{CrashAlcoh} : Si une des deux personnes était alcoolisé ;
+\item
+  \texttt{CrashDay} : S'il a déjà eu un accident de travail ;
+\item
+  \texttt{Crash\_Date} : Date de l'accident ;
+\item
+  \texttt{Crash\_Grp} : La cause de l'accident ;
+\item
+  \texttt{Crash\_Hour} : L'heure de l'accident ;
+\item
+  \texttt{Crash\_Loc} : S'il y avait une intersection ou pas ;
+\item
+  \texttt{Crash\_Mont} : ;Le mois de l'accident ;
+\item
+  \texttt{Crash\_Time} : La date de l'accident ;
+\item
+  \texttt{Crash\_Type} : Type de l'accident ;
+\item
+  \texttt{Crash\_Ty\_1} : ;
+\item
+  \texttt{Crash\_Year} : L'année de l'accident ;
+\item
+  \texttt{Crsh\_Sevri} : La séverité de la blessure ;
+\item
+  \texttt{Development} : Le cadre de la région dans lequel l'accident
+  s'est déroulé ;
+\item
+  \texttt{DrvrAge\_Gr} : La tranche d'age du conducteur qui a fait
+  l'accident ;
+\item
+  \texttt{Drvr\_Age} : L'age du conducteur ;
+\item
+  \texttt{Drvr\_Alc\_D} : Si le conducteur était alcoolisé ou pas ;
+\item
+  \texttt{Drvr\_EstSp} : Vitesse du conducteur responsable de l'accident
+  ;
+\item
+  \texttt{Drvr\_Injur} : L'etat du conducteur responsable de l'accident
+  ;
+\item
+  \texttt{Drvr\_Race} : La race du conducteur responsable de l'accident
+  ;
+\item
+  \texttt{Drvr\_Sex} : Le sexe du conducteur responsable de l'accident ;
+\item
+  \texttt{Drvr\_VehTy} : Le type de véhicule ;
+\item
+  \texttt{ExcsSpdInd} : Depassement de la vitesse limite autorisée;
+\item
+  \texttt{Hit\_Run} : Si le conducteur s'est enfuit sans vérifier que le
+  pilote va bien ;
+\item
+  \texttt{Light\_Cond} : La luminosité ;
+\item
+  \texttt{Locality} : Localité ;
+\item
+  \texttt{Num\_Lanes} : Numéro de la voie ;
+\item
+  \texttt{Num\_Units} : Numéro de l'unité ;
+\item
+  \texttt{Rd\_Charact} : ;
+\item
+  \texttt{Rd\_Class} : Le type de route ;
+\item
+  \texttt{Rd\_Conditi} : Condition de la route ;
+\item
+  \texttt{Rd\_Config} : Le genre de la route ;
+\item
+  \texttt{Rd\_Defects} : L'Etat de la route ;
+\item
+  \texttt{Rd\_Feature} : Spécificité de la route ;
+\item
+  \texttt{Rd\_Surface} : La surface de la route ;
+\item
+  \texttt{Region} : La Region ;
+\item
+  \texttt{Rural\_Urba} : Rurale ou urbaine ;
+\item
+  \texttt{Speed\_Limi} : Limite de vitesse ;
+\item
+  \texttt{Traff\_Cntr} : Controle du trafique ;
+\item
+  \texttt{Weather} : Condition météo ;
+\item
+  \texttt{Workzone\_I} : Zone de travail ;
+\item
+  \texttt{Location} : Localisation ;
+\end{itemize}
+
+Pour notre étude analytique nous allons travailler sur une base de
+données qui nous donne un ensemble d'informations sur les accidents de
+vélo qui se sont produit aux Etats-Unis. Elle nous donne des
+informations sur des variables innhérentes aux conducteurs impliqués
+dans ces accidents mais aussi sur les divers conditions et situations
+physiques et environnementales qui l'entoure. Cette base de données nous
+renseigne sur 5716 observations contenant 54 variables.
+
+\#Plan
+
+Pour mener à bien notre analyse nous allons procédés en plusieurs etapes
+: * \texttt{Etudes\ sur\ les\ cyclistes} : consacré à l'etudes des
+varaiables qui concerne le cycliste ; *
+\texttt{Etude\ sur\ les\ conducteurs} : consacré à l'etudes des
+variables qui concerne les conducteurs ; *
+\texttt{Etudes\ sur\ les\ données\ temporelles} : consacré à l'etudes
+des variables qui concerne le cycliste ; *
+\texttt{Etude\ sur\ les\ condtions\ de\ l\textquotesingle{}accident} :
+qui correpond aux données sur les conditions météo, l'etat de la route
+etc.. ;
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{Etude\ sur\ les\ autres\ variables} : qui correspond aux
+  données non classeés mais qui semblent pertinentes ;
+\end{itemize}
+
+\#Données manquantes
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{verbatim}
+## 
+##  Variables sorted by number of missings: 
+##    Variable        Count
+##    Drvr_Age 0.1917424773
+##  Crash_Ty_1 0.1784464661
+##    CrashDay 0.1445066480
+##  DrvrAge_Gr 0.1327851645
+##    Drvr_Sex 0.1326102169
+##  Drvr_VehTy 0.0883484955
+##  Drvr_EstSp 0.0831000700
+##   Num_Lanes 0.0558082575
+##  Speed_Limi 0.0502099370
+##    Bike_Dir 0.0489853044
+##    Bike_Pos 0.0442617215
+##  Crash_Mont 0.0411126662
+##    Bike_Age 0.0227431770
+##  BikeAge_Gr 0.0195941218
+##    Bike_Sex 0.0167949615
+##   Rd_Config 0.0101469559
+##    Rd_Class 0.0052484255
+##  Rd_Charact 0.0050734780
+##  Rd_Defects 0.0045486354
+##  Rd_Surface 0.0033240028
+##  Rd_Conditi 0.0029741078
+##  Light_Cond 0.0013995801
+##   Crash_Grp 0.0006997901
+##   Crash_Loc 0.0006997901
+##  Crash_Type 0.0006997901
+##         FID 0.0000000000
+##    OBJECTID 0.0000000000
+##  AmbulanceR 0.0000000000
+##  Bike_Alc_D 0.0000000000
+##  Bike_Injur 0.0000000000
+##   Bike_Race 0.0000000000
+##        City 0.0000000000
+##      County 0.0000000000
+##  CrashAlcoh 0.0000000000
+##  Crash_Date 0.0000000000
+##  Crash_Hour 0.0000000000
+##  Crash_Time 0.0000000000
+##  Crash_Year 0.0000000000
+##  Crsh_Sevri 0.0000000000
+##  Developmen 0.0000000000
+##  Drvr_Alc_D 0.0000000000
+##  Drvr_Injur 0.0000000000
+##   Drvr_Race 0.0000000000
+##  ExcsSpdInd 0.0000000000
+##     Hit_Run 0.0000000000
+##    Locality 0.0000000000
+##   Num_Units 0.0000000000
+##  Rd_Feature 0.0000000000
+##      Region 0.0000000000
+##  Rural_Urba 0.0000000000
+##  Traff_Cntr 0.0000000000
+##     Weather 0.0000000000
+##  Workzone_I 0.0000000000
+##    Location 0.0000000000
+\end{verbatim}
+
+Les variables qui contiennent le plus de données manquantes sont : L'age
+du vhauffeur, Crash\_ty\_1, Le jour de du crash , et le sexe du
+chauffeur.
+
+\hypertarget{etude-sur-les-cycliste}{%
+\section{Etude sur les cycliste}\label{etude-sur-les-cycliste}}
+
+\hypertarget{age-et-sexe-des-cyclistes}{%
+\subsection{Age et Sexe des cyclistes}\label{age-et-sexe-des-cyclistes}}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+Nous remarquons sur ce graphique que les accidents de vélo concernent
+essentiellements les hommes et que la moyennes d'age des accidentées
+etait relativement la meme quelque soit le sexe.
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-6-1.pdf}
+~
+
+L'age des accidentés varie fortement, cependant on peut constater sur ce
+graphique que le nombre d'accidents est beaucoup plus élevé pour les
+individu ayant entre 13 et 21 ans ; Puis s'en suis une forte baise du
+nombre d'accidents chez les 22-40 ans puis, après une legère
+augmentation chez les 41-53 ans, le nombre d'accident se réduit
+considérablement.
+
+~
+
+\hypertarget{alcooluxe9mie}{%
+\subsection{Alcoolémie}\label{alcooluxe9mie}}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-7-1.pdf}
+~
+
+La plupart des accidents ne sont pas dût à l'alccol.
+
+\hypertarget{race-du-cycliste}{%
+\subsection{Race du cycliste}\label{race-du-cycliste}}
+
+\begin{table}
+\centering
+\begin{tabular}{l|r|r}
+\hline
+  & nombre & Proportion\\
+\hline
+White & 3111 & 0.5442617\\
+\hline
+Other & 48 & 0.0083975\\
+\hline
+native American & 67 & 0.0117215\\
+\hline
+Hispanic & 297 & 0.0519594\\
+\hline
+Black & 2006 & 0.3509447\\
+\hline
+Asian & 56 & 0.0097971\\
+\hline
+Missing & 131 & 0.0229181\\
+\hline
+\end{tabular}
+\end{table}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\hypertarget{bluxe9ssures-du-cycliste.}{%
+\subsection{Bléssures du cycliste.}\label{bluxe9ssures-du-cycliste.}}
+
+\begin{table}
+\centering
+\begin{tabular}{l|r}
+\hline
+Bike\_Injur & Freq\\
+\hline
+B: Evident Injury & 2405\\
+\hline
+C: Possible Injury & 2199\\
+\hline
+O: No Injury & 526\\
+\hline
+A: Disabling Injury & 291\\
+\hline
+Injury & 172\\
+\hline
+K: Killed & 123\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{verbatim}
+## Warning: Use of `Injur$Bike_Injur` is discouraged. Use `Bike_Injur` instead.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Use of `Injur$Freq` is discouraged. Use `Freq` instead.
+\end{verbatim}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+La majeure partie des accidents, bien que n'étant pas mortel, entraine
+dans la plupart des cas des blessures graves. Ceci s'explique notament
+parce que la plupart des colision se font avec des automiblistes et que
+les cyclistes n'ont aucune protections d'aucune sorte.
+
+\hypertarget{relation-entre-type-de-blessure-et-position-du-vuxe9lo}{%
+\subsection{Relation entre type de blessure et Position du
+vélo}\label{relation-entre-type-de-blessure-et-position-du-vuxe9lo}}
+
+\begin{table}
+\centering
+\begin{tabular}{l|r}
+\hline
+Var1 & Freq\\
+\hline
+Travel Lane & 3746\\
+\hline
+Sidewalk / Crosswalk / Driveway Crossing & 899\\
+\hline
+Non-Roadway & 309\\
+\hline
+Bike Lane / Paved Shoulder & 295\\
+\hline
+Driveway / Alley & 146\\
+\hline
+Multi-use Path & 36\\
+\hline
+Other & 32\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{verbatim}
+## Warning: Use of `bike$Bike_Injur` is discouraged. Use `Bike_Injur` instead.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Use of `bike$Bike_Pos` is discouraged. Use `Bike_Pos` instead.
+\end{verbatim}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\hypertarget{etude-sur-les-conducteurs}{%
+\section{Etude sur les conducteurs}\label{etude-sur-les-conducteurs}}
+
+\hypertarget{sexe-du-conducteur}{%
+\subsection{Sexe du conducteur}\label{sexe-du-conducteur}}
+
+\begin{table}
+\centering
+\begin{tabular}{l|r}
+\hline
+Var1 & Freq\\
+\hline
+Female & 2231\\
+\hline
+Male & 2727\\
+\hline
+\end{tabular}
+\end{table}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+~
+
+Contrairement aux accidentés qui sont essentiellement des hommes, le
+sexe des auteurs des accidents est quand à lui repartit plus
+quitablement entre les hommes et les femmes. Cependant le doute subsiste
+etant donné le nombre de données manquantes.
+
+\hypertarget{age-des-chauffeurs.}{%
+\subsection{Age des chauffeurs.}\label{age-des-chauffeurs.}}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-17-1.pdf}
+~
+
+L'age du chauffeur est la variable ayant le plus de données manquantes.
+Cette representation graphique permet néanmoins d'observer la
+distribution de l'age des chauffeurs. Trois pics sont a notés, le
+premier a 21 ans , le second à 40 et enfin le dernier a 60 ans.
+
+\hypertarget{bluxe9ssures-des-chauffeurs}{%
+\subsection{Bléssures des
+chauffeurs}\label{bluxe9ssures-des-chauffeurs}}
+
+\begin{table}
+\centering
+\begin{tabular}{l|r}
+\hline
+Var1 & Freq\\
+\hline
+O: No Injury & 0.8341498\\
+\hline
+Injury & 0.1410077\\
+\hline
+C: Possible Injury & 0.0143457\\
+\hline
+B: Evident Injury & 0.0094472\\
+\hline
+A: Disabling Injury & 0.0006998\\
+\hline
+K: Killed & 0.0003499\\
+\hline
+\end{tabular}
+\end{table}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+On aurait pu supposer d'intinct qu'un accident entre une voiture et un
+cycliste ne causeraI que très peu de dommage au conducteur de la
+voiture, les données le confirme. Dans la plupart des accidents le
+chauffeur s'en est sorti sans blessures. Il n'y a que 2 morts parmi les
+5716 accidents recensés.
+
+\hypertarget{relation-entre-la-vitesse-du-chaufeur-sa-couleur-de-peau-et-le-nombre-daccidents}{%
+\subsection{Relation entre la vitesse du chaufeur, sa couleur de peau et
+le nombre
+d'accidents}\label{relation-entre-la-vitesse-du-chaufeur-sa-couleur-de-peau-et-le-nombre-daccidents}}
+
+\begin{table}
+\centering
+\begin{tabular}{l|r|r|r|r|r|r|r}
+\hline
+  & /Missing & Asian & Black & Hispanic & Native American & Other & White\\
+\hline
+>100 mph & 0 & 0 & 0 & 0 & 0 & 0 & 2\\
+\hline
+0-5 mph & 114 & 14 & 317 & 39 & 5 & 14 & 819\\
+\hline
+11-15 mph & 42 & 5 & 123 & 15 & 2 & 7 & 213\\
+\hline
+16-20 mph & 48 & 5 & 123 & 9 & 2 & 5 & 222\\
+\hline
+21-25 mph & 43 & 4 & 142 & 8 & 4 & 6 & 214\\
+\hline
+26-30 mph & 22 & 1 & 91 & 15 & 5 & 2 & 150\\
+\hline
+31-35 mph & 92 & 3 & 201 & 20 & 6 & 6 & 324\\
+\hline
+36-40 mph & 21 & 3 & 44 & 10 & 2 & 2 & 113\\
+\hline
+41-45 mph & 74 & 1 & 99 & 7 & 7 & 3 & 309\\
+\hline
+46-50 mph & 8 & 1 & 23 & 3 & 0 & 2 & 70\\
+\hline
+51-55 mph & 42 & 1 & 50 & 6 & 20 & 1 & 158\\
+\hline
+56-60 mph & 0 & 0 & 4 & 5 & 0 & 0 & 13\\
+\hline
+6-10 mph & 74 & 11 & 175 & 20 & 1 & 6 & 340\\
+\hline
+61-65 mph & 1 & 1 & 1 & 0 & 0 & 0 & 2\\
+\hline
+66-70 mph & 0 & 0 & 1 & 0 & 0 & 0 & 1\\
+\hline
+81-85 mph & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
+\hline
+\end{tabular}
+\end{table}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+Les chauffeurs les plus impliqués dans un accidents sont de race
+Blanche, les second etant Noir. La plupart des individus impliqués dans
+un accident roulent entre 0 et 5 mph (milles par heure). Le fait que les
+victimes et les auteurs des accidents soient en majorité blanche peut
+s'expliquer simplement par le fait que la population soit en majorité
+blanche. Il serait intéréssant de rapporter ces données a la proportion
+de la population, mais nous manquons de données pour cela. Notons aussi
+que nous avant 1500 accidents dont nous n'avons pas de données sur la
+vitesse.
+
+\#\#Alcoolémie
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+\begin{wraptable}{r}{0pt}
+\begin{tabular}{l|r}
+\hline
+Var1 & Freq\\
+\hline
+Missing & 632\\
+\hline
+No & 4990\\
+\hline
+Yes & 94\\
+\hline
+\end{tabular}\end{wraptable}
+
+La plupart des chauffeurs n'etaient pas alcoolisés.
+
+\hypertarget{type-de-voitures}{%
+\subsection{Type de voitures}\label{type-de-voitures}}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-24-1.pdf}
+
+\begin{table}
+\centering
+\begin{tabular}{l|r}
+\hline
+Var1 & Freq\\
+\hline
+Passenger Car & 3032\\
+\hline
+Sport Utility & 823\\
+\hline
+Pickup & 745\\
+\hline
+Van & 294\\
+\hline
+Light Truck (Mini-Van, Panel) & 85\\
+\hline
+Single Unit Truck (2-Axle, 6-Tire) & 40\\
+\hline
+Motorcycle & 36\\
+\hline
+Police & 35\\
+\hline
+Pedalcycle & 17\\
+\hline
+School Bus & 17\\
+\hline
+Truck/Trailer & 17\\
+\hline
+Commercial Bus & 14\\
+\hline
+Tractor/Semi-Trailer & 14\\
+\hline
+Taxicab & 10\\
+\hline
+Single Unit Truck (3 Or More Axles) & 9\\
+\hline
+Other Bus & 8\\
+\hline
+Heavy Truck & 5\\
+\hline
+Pedestrian & 5\\
+\hline
+Motor Home/Recreational Vehicle & 2\\
+\hline
+Activity Bus & 1\\
+\hline
+EMS Vehicle, Ambulance, Rescue Squad & 1\\
+\hline
+Truck/Tractor & 1\\
+\hline
+\end{tabular}
+\end{table}
+
+Les principales types voitures impliqués dans des accidents de vélos
+sont des voitures familiales, voitures des port, Pickup et Van. Ceci
+pourrait s'expliquer par le fait que les cycliste se promenant surtout
+en agglomération ils rencontre surtout ce genre de voiture.
+
+\hypertarget{etude-sur-les-donnuxe9es-temporelles}{%
+\section{Etude sur les données
+temporelles}\label{etude-sur-les-donnuxe9es-temporelles}}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+Le premier grahique nous montre que globalement au fil des années le
+nombre d'accident impliquant un cycliste et un conducteur est resté plus
+ou moins le même au alentours de 1000 accident sauf au cours de l'année
+2009 où nous avons eu une nette diminution d'environ 200 accidents.
+
+Nous avons des maintenant des informations concernant l'heure, le
+mois(extraite des la variable date) et l'année des differents accidents.
+
+\hypertarget{evolution-du-nombre-daccident-par-mois-en-fonction-des-annuxe9es}{%
+\subsection{Evolution du Nombre d'accident par mois en fonction des
+années}\label{evolution-du-nombre-daccident-par-mois-en-fonction-des-annuxe9es}}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-27-1.pdf}
+
+Les courbes representative de l'evolution des accidents en fonction des
+mois, par année , se chevauchant entre elles et etant données qu'aucune
+ne se démarque des autres, on peut supposer que le nombre d'accident est
+rester tendanciellemnt le même au cours de ces 5 années. On remarque
+aussi que pour pratiquement toutes les années le nombre d'accident est
+plus élevé entre le 6eme et le 9eme mois c'est a dire de juin à
+septembre.
+
+\hypertarget{carte}{%
+\section{Carte}\label{carte}}
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-28-1.pdf}
+\#\# Zoom
+
+Faisons un zoom sur les 4 comtés où le nombre d'accident est le plus
+important. Elles se trouve dans la meme zone géographique, l'est du
+Pays.
+
+\includegraphics{Analyse-statistique_files/figure-latex/unnamed-chunk-29-1.pdf}
+```
+
+\end{document}
